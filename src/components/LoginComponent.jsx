@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, IdcardOutlined, CompassOutlined} from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom'; // 导入useNavigate
+import {Link, useNavigate} from 'react-router-dom'; // 导入useNavigate
 import auth from '../api/auth';
 
 const LoginComponent = () => {
@@ -44,6 +44,9 @@ const LoginComponent = () => {
             >
                 <Input prefix={<CompassOutlined />} placeholder="密码" />
             </Form.Item>
+            <Link to="/register" target="_blank">
+                没有账号?马上注册！
+            </Link>
             <Form.Item>
                 <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
                     登录
