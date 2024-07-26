@@ -1,25 +1,49 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import {Form, Input, Button, Select, Cascader, message, Radio} from 'antd';
+import {Form, Input, Button, Select, Cascader, message, Radio, Space} from 'antd';
+import {Link, useNavigate} from 'react-router-dom'; // 导入useNavigate
 import json from '../asserts/pca.json';
+import auth from "../api/auth";
+import code from "../api/api";
+import {wait} from "@testing-library/user-event/dist/utils";
+import CaptchaInput from "./CaptchaInput";
 
 const { Option } = Select;
 
-const regionData = json; // Adjust this as per the JSON structure
+const regionData = json; // JSON数据接口赋值
 
 const RegisterComponent = () => {
     const [form] = Form.useForm();
     const [docType, setDocType] = useState('idCard');
 
+    const navigate = useNavigate(); // 使用useNavigate hook
+
+    // function getCode() {
+    //     document.getElementById("img").src='/img/getVerifyCode'+Math.random();
+    // }
+
+
+
+    // const generateCode = async () => {
+    //     try {
+    //         const response = await code.vcode();
+    //         console.log(response);
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
+
     // 点击提交后，调用Axios请求
     const onFinish = (values) => {
         console.log(values);
-        axios.post('/register', values)
+        // 登录逻辑
+        auth.register(values)
             .then(response => {
-                message.success('注册成功!');
+                message.success('注册成功');
+                navigate('/login'); // 登录成功后跳转到/index
             })
             .catch(error => {
-                message.error('注册失败!');
+                message.error('登录失败，请检查手机号或身份证号');
             });
     };
 
@@ -109,8 +133,10 @@ const RegisterComponent = () => {
 
             <Form.Item label="证件类型" name="docType">
                 <Radio.Group onChange={onDocTypeChange} value={docType}>
+                    <Space size="large">
                     <Radio value="idCard">中国居民身份证</Radio>
                     <Radio value="passport">护照</Radio>
+                    </Space>
                 </Radio.Group>
             </Form.Item>
 
@@ -180,10 +206,23 @@ const RegisterComponent = () => {
             >
                 <Input placeholder="工作角色" />
             </Form.Item>
+            <Form.Item
+                name="captchaInput"
+                label="验证码"
+                rules={[{
+                    // required: true,   //测试开发阶段不渲染验证码
+                    message: "请输入验证码"
+                }]}
+            >
 
+                <CaptchaInput/>
+            </Form.Item>
             <Form.Item>
                 <Button type="primary" htmlType="submit">
-                    Register
+                    注册
+                </Button>
+                <Button type="primary" htmlType="reset">
+                    重置
                 </Button>
             </Form.Item>
         </Form>

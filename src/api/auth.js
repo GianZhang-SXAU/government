@@ -10,6 +10,15 @@ const login = (data) => {
     });
 };
 
+const register = (data) => {
+    return axios.post(`${API_BASE_URL}/register`, data,{
+        headers:{
+            'Accept': 'application/json',
+        }
+    })
+}
+
 export default {
-    login
+    login,
+    register
 };

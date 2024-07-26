@@ -3,6 +3,7 @@ import { Form, Input, Button, message } from 'antd';
 import { UserOutlined, IdcardOutlined, CompassOutlined} from '@ant-design/icons';
 import {Link, useNavigate} from 'react-router-dom'; // 导入useNavigate
 import auth from '../api/auth';
+import CaptchaInput from "./CaptchaInput";
 
 const LoginComponent = () => {
     const navigate = useNavigate(); // 使用useNavigate hook
@@ -24,7 +25,7 @@ const LoginComponent = () => {
             name="login_form"
             onFinish={onFinish}
             initialValues={{ remember: true }}
-            style={{ maxWidth: 300, margin: 'auto', padding: '50px 0' }}
+            style={{  margin: 'auto', padding: '50px 0' }}
         >
             <Form.Item
                 name="phone"
@@ -43,6 +44,16 @@ const LoginComponent = () => {
                 rules={[{ required: true, message: '请输入密码' }]}
             >
                 <Input prefix={<CompassOutlined />} placeholder="密码" />
+            </Form.Item>
+            <Form.Item
+                name="captchaInput"
+                label="验证码"
+                rules={[{
+                    // required: true,   //测试开发阶段不渲染验证码
+                    message: "请输入验证码"
+                }]}
+            >
+                <CaptchaInput/>
             </Form.Item>
             <Link to="/register" target="_blank">
                 没有账号?马上注册！

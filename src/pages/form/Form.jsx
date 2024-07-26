@@ -1,18 +1,34 @@
-import React, { useState } from "react";
-import {Button, Checkbox, Form, Input, DatePicker, Space, ConfigProvider, Radio, Select} from "antd";
+import React, { useState, useEffect } from "react";
+import { Button, Form, Input, DatePicker, Space, ConfigProvider, Radio, Select } from "antd";
 import locale from 'antd/locale/zh_CN';
 import dayjs from 'dayjs';
+import axios from 'axios';
 
 import 'dayjs/locale/zh-cn';
-import {submitFormData} from "../../api/form";
+import { submitFormData } from "../../api/form";
 
 const { RangePicker } = DatePicker;
 dayjs.locale('zh-cn');
 
 const FormPage = () => {
+    const API_BASE_URL = 'http://127.0.0.1:8888';
     const [form] = Form.useForm();
     const [docType, setDocType] = useState('idCard');
     const [countryCode, setCountryCode] = useState('+86');
+    const [serviceTypes, setServiceTypes] = useState([]);
+
+    useEffect(() => {
+        const fetchServiceTypes = async () => {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/api/services`);
+                setServiceTypes(response.data);
+            } catch (error) {
+                console.error('获取预约服务类型失败:', error);
+            }
+        };
+
+        fetchServiceTypes();
+    }, []);
 
     const onCountryCodeChange = (value) => {
         setCountryCode(value);
@@ -163,21 +179,11 @@ const FormPage = () => {
                     ]}
                 >
                     <Select placeholder="请选择服务类型">
-                        <Select.Option value="administrativePermit">行政许可</Select.Option>
-                        <Select.Option value="administrativeConfirmation">行政确认</Select.Option>
-                        <Select.Option value="administrativeDecision">行政裁决</Select.Option>
-                        <Select.Option value="administrativePayment">行政给付</Select.Option>
-                        <Select.Option value="administrativeReward">行政奖励</Select.Option>
-                        <Select.Option value="administrativeRecord">行政备案</Select.Option>
-                        <Select.Option value="publicEducation">公共教育</Select.Option>
-                        <Select.Option value="employment">劳动就业</Select.Option>
-                        <Select.Option value="socialInsurance">社会保险</Select.Option>
-                        <Select.Option value="healthCare">医疗卫生</Select.Option>
-                        <Select.Option value="elderlyServices">养老服务</Select.Option>
-                        <Select.Option value="socialServices">社会服务</Select.Option>
-                        <Select.Option value="housingSecurity">住房保障</Select.Option>
-                        <Select.Option value="cultureSports">文化体育</Select.Option>
-                        <Select.Option value="disabilityServices">残疾人服务</Select.Option>
+                        {serviceTypes.map(service => (
+                            <Select.Option key={service.serviceId} value={service.serviceName}>
+                                {service.description}
+                            </Select.Option>
+                        ))}
                     </Select>
                 </Form.Item>
                 <Form.Item
