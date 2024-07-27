@@ -6,15 +6,18 @@ import IndexComponent from "../../components/IndexComponent";
 import ServiceManagement from "../../components/ServiceManagementComponent";
 import AdminLoginComponent from "../../components/admin/AdminLoginComponent";
 import WindowManagement from "../../components/windows/WindowManagementComponent";
+import AdminRegisterComponent from "../../components/admin/AdminRegisterComponent";
+import ManageAppointments from "../../components/appointments/ManageAppointments";
+import CreateAppointment from "../../components/appointments/CreateAppointment";
 
 const { Header, Content, Footer, Sider } = Layout;
 // eslint-disable-next-line react-hooks/rules-of-hooks
 // const [userInfo, setUserInfo] = useState(null);
 // Placeholder Components
 const HomePage = () => <div><IndexComponent/></div>;
-const QuickReservePage = () => <div><FormPage/></div>;
-const UserProfilePage = () => <div><AdminLoginComponent/></div>;
-const ViewReservationPage = () => <div>预约信息查看内容</div>;
+const QuickReservePage = () => <div><CreateAppointment/></div>;
+const UserProfilePage = () => <div><AdminRegisterComponent/></div>;
+const ViewReservationPage = () => <div><ManageAppointments/></div>;
 const ViewQueuePage = () => <div>排队信息查看内容</div>;
 const EditReservationPage = () => <div>预约信息修改内容</div>;
 const ManageServicesPage = () => <div><ServiceManagement/></div>;

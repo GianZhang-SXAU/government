@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Input, DatePicker, Space, ConfigProvider, Radio, Select } from "antd";
-import locale from 'antd/locale/zh_CN';
-import dayjs from 'dayjs';
-import axios from 'axios';
-
+import { Button, Form, Input, DatePicker, Radio, Select, message, Space, ConfigProvider } from "antd";
+import locale from "antd/locale/zh_CN";
+import axios from "axios";
+import dayjs from "dayjs";
 import 'dayjs/locale/zh-cn';
 import { submitFormData } from "../../api/form";
 
 const { RangePicker } = DatePicker;
 dayjs.locale('zh-cn');
 
-const FormPage = () => {
+const CreateAppointment = () => {
     const API_BASE_URL = 'http://127.0.0.1:8888';
     const [form] = Form.useForm();
     const [docType, setDocType] = useState('idCard');
     const [countryCode, setCountryCode] = useState('+86');
     const [serviceTypes, setServiceTypes] = useState([]);
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const fetchServiceTypes = async () => {
@@ -28,6 +28,7 @@ const FormPage = () => {
         };
 
         fetchServiceTypes();
+
     }, []);
 
     const onCountryCodeChange = (value) => {
@@ -38,7 +39,6 @@ const FormPage = () => {
         const phonePattern = {
             '+86': /^1[3-9]\d{9}$/, // 中国
             '+1': /^[2-9]\d{2}-\d{3}-\d{4}$/, // 美国
-            // 可根据需要添加其他国家的正则表达式
         };
 
         const pattern = phonePattern[countryCode];
@@ -48,7 +48,6 @@ const FormPage = () => {
         return Promise.resolve();
     };
 
-    // 身份证号码的正则表达式验证规则
     const idCardValidator = (_, value) => {
         const idCardPattern = /^[1-9]\d{5}(18|19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{3}(\d|X|x)$/;
         if (value && !idCardPattern.test(value)) {
@@ -57,7 +56,6 @@ const FormPage = () => {
         return Promise.resolve();
     };
 
-    // 护照号码的正则表达式验证规则
     const passportValidator = (_, value) => {
         const passportPattern = /^[a-zA-Z]{5,17}$/;
         if (value && !passportPattern.test(value)) {
@@ -68,16 +66,26 @@ const FormPage = () => {
 
     const onDocTypeChange = (e) => {
         setDocType(e.target.value);
-        form.resetFields(['idnum']);
+        form.resetFields(['documentNumber']);
     };
 
     const onFinish = async (values) => {
-        console.log('Success:', values);
         try {
-            const response = await submitFormData(values);
-            console.log('服务器响应:', response);
+            const appointmentData = {
+                serviceId: values.serviceType,
+                phoneNumber: values.phone,
+                documentType: docType,
+                documentNumber: values.documentNumber,
+                appointmentDate: values.daterange[0].format('YYYY-MM-DD'),
+                appointmentTime: values.daterange[1].format('HH:mm:ss'),
+                status: values.status
+            };
+            await axios.post(`${API_BASE_URL}/api/appointments`, appointmentData);
+            message.success('预约提交成功');
+            form.resetFields();
         } catch (error) {
             console.error('错误提交:', error);
+            message.error('预约提交失败');
         }
     };
 
@@ -86,36 +94,22 @@ const FormPage = () => {
     };
 
     return (
-        <>
-            快捷预约
+        <ConfigProvider locale={locale}>
             <Form
-                name="basic"
-                labelCol={{
-                    span: 8,
-                }}
-                wrapperCol={{
-                    span: 16,
-                }}
-                style={{
-                    maxWidth: 600,
-                }}
-                initialValues={{
-                    remember: true,
-                }}
                 form={form}
+                name="createAppointment"
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
+                style={{ maxWidth: 600 }}
             >
+
                 <Form.Item
                     label="姓名"
                     name="username"
-                    rules={[
-                        {
-                            required: true,
-                            message: '请输入您的姓名!',
-                        },
-                    ]}
+                    rules={[{ required: true, message: '请输入您的姓名!' }]}
                 >
                     <Input />
                 </Form.Item>
@@ -127,90 +121,55 @@ const FormPage = () => {
                     </Radio.Group>
                 </Form.Item>
 
-                {docType === 'idCard' && (
-                    <Form.Item
-                        name="idnum"
-                        label="身份证号码"
-                        rules={[
-                            { required: true, message: '请输入身份证号码' },
-                            { validator: idCardValidator },
-                        ]}
-                    >
-                        <Input placeholder="请输入身份证号码" />
-                    </Form.Item>
-                )}
-
-                {docType === 'passport' && (
-                    <Form.Item
-                        name="idnum"
-                        label="护照号码"
-                        rules={[
-                            { required: true, message: '请输入护照号码' },
-                            { validator: passportValidator },
-                        ]}
-                    >
-                        <Input placeholder="请输入护照号码" />
-                    </Form.Item>
-                )}
+                <Form.Item
+                    name="documentNumber"
+                    label="证件号码"
+                    rules={[
+                        { required: true, message: '请输入证件号码' },
+                        { validator: docType === 'idCard' ? idCardValidator : passportValidator },
+                    ]}
+                >
+                    <Input placeholder="请输入证件号码" />
+                </Form.Item>
 
                 <Form.Item
                     label="性别"
-                    name="sex"
-                    rules={[
-                        {
-                            required: true,
-                            message: '请输入您的性别!',
-                        },
-                    ]}
+                    name="gender"
+                    rules={[{ required: true, message: '请选择您的性别!' }]}
                 >
                     <Radio.Group buttonStyle="solid" defaultValue="男">
                         <Radio.Button value="男">男</Radio.Button>
                         <Radio.Button value="女">女</Radio.Button>
                     </Radio.Group>
                 </Form.Item>
+
                 <Form.Item
                     label="预约服务"
                     name="serviceType"
-                    rules={[
-                        {
-                            required: true,
-                            message: '请选择预约服务类型!',
-                        },
-                    ]}
+                    rules={[{ required: true, message: '请选择预约服务类型!' }]}
                 >
                     <Select placeholder="请选择服务类型">
                         {serviceTypes.map(service => (
-                            <Select.Option key={service.serviceId} value={service.serviceName}>
+                            <Select.Option key={service.serviceId} value={service.serviceId}>
                                 {service.description}
                             </Select.Option>
                         ))}
                     </Select>
-                </Form.Item>]
+                </Form.Item>
+
                 <Form.Item
                     label="预约时间"
                     name="daterange"
-                    rules={[
-                        {
-                            required: true,
-                            message: '请选择您的预约时间!',
-                        },
-                    ]}
+                    rules={[{ required: true, message: '请选择您的预约时间!' }]}
                 >
-                    <ConfigProvider locale={locale}>
-                        <Space direction="vertical" size={12}>
-                            <RangePicker renderExtraFooter={() => '请选择您的预约时间'} showTime />
-                        </Space>
-                    </ConfigProvider>
+                    <DatePicker showTime  />
                 </Form.Item>
 
                 <Form.Item
                     label="手机号"
                     name="phone"
                     rules={[
-                        {
-                            required: true,
-                            message: '请输入您的手机号!',
-                        },
+                        { required: true, message: '请输入您的手机号!' },
                         { validator: phoneValidator },
                     ]}
                 >
@@ -219,24 +178,33 @@ const FormPage = () => {
                             <Select defaultValue={countryCode} onChange={onCountryCodeChange} style={{ width: 80 }}>
                                 <Select.Option value="+86">+86</Select.Option>
                                 <Select.Option value="+1">+1</Select.Option>
-                                {/* 可根据需要添加其他国家 */}
                             </Select>
                         }
                     />
                 </Form.Item>
+
                 <Form.Item
-                    wrapperCol={{
-                        offset: 8,
-                        span: 16,
-                    }}
+                    label="预约状态"
+                    name="status"
+                    rules={[{ required: true, message: '请选择预约状态!' }]}
                 >
+                    <Select placeholder="请选择预约状态">
+                        <Select.Option value="pending">待处理</Select.Option>
+                        <Select.Option value="confirmed">已确认</Select.Option>
+                        <Select.Option value="cancelled">已取消</Select.Option>
+                        <Select.Option value="completed">已完成</Select.Option>
+                        <Select.Option value="unfinished">未完成</Select.Option>
+                    </Select>
+                </Form.Item>
+
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                     <Button type="primary" htmlType="submit">
                         提交
                     </Button>
                 </Form.Item>
             </Form>
-        </>
+        </ConfigProvider>
     );
 };
 
-export default FormPage;
+export default CreateAppointment;

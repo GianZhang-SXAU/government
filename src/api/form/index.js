@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const FORM_API = '127.0.0.1:8888/submit';
+const FORM_API = '127.0.0.1:8888/api/appointments';
 
 export const submitFormData = async (formData) => {
     try {
