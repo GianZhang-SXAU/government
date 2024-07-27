@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Input, message } from 'antd';
 import axios from 'axios';
 
-const CaptchaInput = () => {
+const CaptchaInput = ({ onVerify }) => {
     const [uuid, setUuid] = useState('');
     const [captchaUrl, setCaptchaUrl] = useState('');
     const [captchaInput, setCaptchaInput] = useState('');
@@ -27,27 +27,28 @@ const CaptchaInput = () => {
             });
             if (response.data) {
                 message.success('验证码验证成功');
-                // generateCaptcha(); // 验证成功后生成新的验证码
-                // setCaptchaInput(''); // 清空输入框
+                onVerify(true);
             } else {
                 message.error('验证码验证失败');
-                // generateCaptcha(); // 验证失败后刷新验证码
+                onVerify(false);
+                generateCaptcha();
             }
         } catch (error) {
             message.error('验证验证码时出错');
-            generateCaptcha(); // 出错时刷新验证码
+            generateCaptcha();
         }
     };
 
     return (
         <div>
             <div style={{ marginTop: '10px' }}>
+                验证码：
                 <Input
                     placeholder="请输入验证码"
                     value={captchaInput}
                     onChange={(e) => setCaptchaInput(e.target.value)}
-                    onBlur={handleVerify} // 失去焦点时验证验证码
-                    style={{ width: '200px', marginRight: '10px' }}
+                    onBlur={handleVerify}
+                    style={{ width: '150px', marginRight: '10px' }}
                 />
                 {captchaUrl && (
                     <img
