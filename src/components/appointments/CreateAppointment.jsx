@@ -15,7 +15,7 @@ const CreateAppointment = () => {
     const [docType, setDocType] = useState('idCard');
     const [countryCode, setCountryCode] = useState('+86');
     const [serviceTypes, setServiceTypes] = useState([]);
-    const [users, setUsers] = useState([]);
+
 
     useEffect(() => {
         const fetchServiceTypes = async () => {
@@ -73,11 +73,11 @@ const CreateAppointment = () => {
         try {
             const appointmentData = {
                 serviceId: values.serviceType,
+                username : values.username,
                 phoneNumber: values.phone,
                 documentType: docType,
                 documentNumber: values.documentNumber,
-                appointmentDate: values.daterange[0].format('YYYY-MM-DD'),
-                appointmentTime: values.daterange[1].format('HH:mm:ss'),
+                appointmentDate: values.daterange.format('YYYY-MM-DD'),
                 status: values.status
             };
             await axios.post(`${API_BASE_URL}/api/appointments`, appointmentData);
@@ -137,7 +137,7 @@ const CreateAppointment = () => {
                     name="gender"
                     rules={[{ required: true, message: '请选择您的性别!' }]}
                 >
-                    <Radio.Group buttonStyle="solid" defaultValue="男">
+                    <Radio.Group buttonStyle="solid" >
                         <Radio.Button value="男">男</Radio.Button>
                         <Radio.Button value="女">女</Radio.Button>
                     </Radio.Group>
@@ -162,7 +162,7 @@ const CreateAppointment = () => {
                     name="daterange"
                     rules={[{ required: true, message: '请选择您的预约时间!' }]}
                 >
-                    <DatePicker showTime  />
+                    <DatePicker />
                 </Form.Item>
 
                 <Form.Item
