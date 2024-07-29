@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Layout, Menu, message} from 'antd';
-import { UserOutlined, ScheduleOutlined, TeamOutlined, FormOutlined } from '@ant-design/icons';
+import {Layout, Menu, Breadcrumb} from 'antd';
+import { UserOutlined, ScheduleOutlined, TeamOutlined, FormOutlined, HomeOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import FormPage from "../form/Form";
 import IndexComponent from "../../components/IndexComponent";
 import ServiceManagement from "../../components/ServiceManagementComponent";
@@ -9,6 +9,8 @@ import WindowManagement from "../../components/windows/WindowManagementComponent
 import AdminRegisterComponent from "../../components/admin/AdminRegisterComponent";
 import ManageAppointments from "../../components/appointments/ManageAppointments";
 import CreateAppointment from "../../components/appointments/CreateAppointment";
+import QueueManagement from "../../components/queue/QueueComponent";
+import InformationManager from "../../components/information/InformationManager";
 
 const { Header, Content, Footer, Sider } = Layout;
 // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -16,13 +18,12 @@ const { Header, Content, Footer, Sider } = Layout;
 // Placeholder Components
 const HomePage = () => <div><IndexComponent/></div>;
 const QuickReservePage = () => <div><CreateAppointment/></div>;
-const UserProfilePage = () => <div><AdminRegisterComponent/></div>;
+const UserProfilePage = () => <div><InformationManager/></div>;
 const ViewReservationPage = () => <div><ManageAppointments/></div>;
-const ViewQueuePage = () => <div>排队信息查看内容</div>;
-const EditReservationPage = () => <div>预约信息修改内容</div>;
+const ViewQueuePage = () => <div><QueueManagement/></div>;
 const ManageServicesPage = () => <div><ServiceManagement/></div>;
 const ServiceFeedbackPage = () => <div>服务评价内容</div>;
-const WindowsPage = () => <div>窗口服务管理<WindowManagement/></div>;
+const WindowsPage = () => <div><WindowManagement/></div>;
 
 // userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
@@ -35,40 +36,63 @@ const WindowsPage = () => <div>窗口服务管理<WindowManagement/></div>;
 
 
 class ReservePage extends React.Component {
+
+    componentDidMount() {
+        document.title = "欢迎使用管理端";
+    }
+
+
     state = {
         contentTitle: '首页',
-        ContentComponent: HomePage
+        ContentComponent: HomePage,
+        breadcrumbItems: [
+            { title: '首页', icon: <HomeOutlined /> }
+        ]
     };
 
     // 将菜单键映射到组件和标题
     topMenuMapping = {
-        '1': { title: '首页', component: HomePage },
-        '2': { title: '快捷预约', component: QuickReservePage },
-        '3': { title: '个人中心', component: UserProfilePage },
+        '1': { title: '首页', component: HomePage, icon: <HomeOutlined /> },
+        '2': { title: '快捷预约', component: QuickReservePage, icon: <AppstoreOutlined /> },
+        '3': { title: '个人中心', component: UserProfilePage, icon: <UserOutlined /> },
     };
 
     sideMenuMapping = {
-        '1': { title: '个人信息修改', component: UserProfilePage },
-        '2': { title: '预约信息查看', component: ViewReservationPage },
-        '3': { title: '排队信息查看', component: ViewQueuePage },
-        '4': { title: '预约信息修改', component: EditReservationPage },
-        '5': { title: '政务服务管理', component: ManageServicesPage },
-        '6': { title: '服务评价', component: ServiceFeedbackPage },
-        '7': { title: '服务评价', component: WindowsPage },
+        '1': { title: '个人信息修改', component: UserProfilePage, icon: <UserOutlined /> },
+        '2': { title: '预约信息查看', component: ViewReservationPage, icon: <ScheduleOutlined /> },
+        '3': { title: '排队信息查看', component: ViewQueuePage, icon: <TeamOutlined /> },
+
+        '4': { title: '政务服务管理', component: ManageServicesPage, icon: <FormOutlined /> },
+        '5': { title: '服务评价管理', component: ServiceFeedbackPage, icon: <FormOutlined /> },
+        '6': { title: '服务窗口管理', component: WindowsPage, icon: <FormOutlined /> },
     };
 
     handleTopMenuClick = (e) => {
-        const { title, component } = this.topMenuMapping[e.key];
-        this.setState({ contentTitle: title, ContentComponent: component });
+        const { title, component, icon } = this.topMenuMapping[e.key];
+        this.setState({
+            contentTitle: title,
+            ContentComponent: component,
+            breadcrumbItems: [
+                { title: '首页', icon: <HomeOutlined /> },
+                { title, icon }
+            ]
+        });
     };
 
     handleSideMenuClick = (e) => {
-        const { title, component } = this.sideMenuMapping[e.key];
-        this.setState({ contentTitle: title, ContentComponent: component });
+        const { title, component, icon } = this.sideMenuMapping[e.key];
+        this.setState({
+            contentTitle: title,
+            ContentComponent: component,
+            breadcrumbItems: [
+                { title: '首页', icon: <HomeOutlined /> },
+                { title, icon }
+            ]
+        });
     };
 
     render() {
-        const { contentTitle, ContentComponent } = this.state;
+        const { contentTitle, ContentComponent, breadcrumbItems } = this.state;
 
         return(
             <>
@@ -106,13 +130,20 @@ class ReservePage extends React.Component {
                                 <Menu.Item key="1" icon={<UserOutlined />}>个人信息修改</Menu.Item>
                                 <Menu.Item key="2" icon={<ScheduleOutlined />}>预约信息查看</Menu.Item>
                                 <Menu.Item key="3" icon={<TeamOutlined />}>排队信息查看</Menu.Item>
-                                <Menu.Item key="4" icon={<FormOutlined />}>预约信息修改</Menu.Item>
-                                <Menu.Item key="5" icon={<FormOutlined />}>政务服务管理</Menu.Item>
-                                <Menu.Item key="6" icon={<FormOutlined />}>服务评价</Menu.Item>
-                                <Menu.Item key="7" icon={<FormOutlined />}>窗口管理</Menu.Item>
+                                <Menu.Item key="4" icon={<FormOutlined />}>政务服务管理</Menu.Item>
+                                <Menu.Item key="5" icon={<FormOutlined />}>服务评价管理</Menu.Item>
+                                <Menu.Item key="6" icon={<FormOutlined />}>服务窗口管理</Menu.Item>
                             </Menu>
                         </Sider>
                         <Layout style={{ padding: '0 24px 24px' }}>
+                            <Breadcrumb style={{ margin: '16px 0' }}>
+                                {breadcrumbItems.map((item, index) => (
+                                    <Breadcrumb.Item key={index}>
+                                        {item.icon}
+                                        <span>{item.title}</span>
+                                    </Breadcrumb.Item>
+                                ))}
+                            </Breadcrumb>
                             <Content
                                 style={{
                                     padding: 24,
@@ -121,11 +152,10 @@ class ReservePage extends React.Component {
                                     background: '#fff'
                                 }}
                             >
-                                <h1>{contentTitle}</h1>
                                 <ContentComponent />
                             </Content>
                             <Footer style={{ textAlign: 'center' }}>
-                                张建安 2024
+                                山西农业大学软件学院 张建安 © 2024 政务服务大厅预约与排队系统. All rights reserved.
                             </Footer>
                         </Layout>
                     </Layout>

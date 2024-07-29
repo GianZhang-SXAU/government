@@ -1,52 +1,56 @@
-import React from 'react';
-import {ConfigProvider, Layout} from 'antd';
-import LoginForm from '../../components/LoginComponent';
-import 'antd/dist/reset.css';
-import logo from '../../asserts/logo.png';
-import {Content, Header,Footer} from "antd/es/layout/layout";
-import './RegisterPage.scss'
+import React, { useState } from 'react';
+import { Form, Input, Button, message } from 'antd';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../store/index';
+import { useNavigate } from 'react-router-dom';
 
-const LoginPage = () => {
+const Login = () => {
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const API_URL = "http://localhost:8888";
+
+    const onFinish = async (values) => {
+        setLoading(true);
+        try {
+            const response = await axios.post(`${API_URL}/api/auth/login`, values);
+            const data = response.data;
+            if (data) {
+                const { type, user, admin } = data;
+                const userData = type === 'user' ? user : admin;
+                dispatch(setUser({ data: userData, type }));
+                message.success('登录成功！');
+                if (type === 'user') {
+                    navigate('/user');
+                } else if (type === 'admin') {
+                    navigate('/reserve');
+                }
+            } else {
+                message.error('登录失败，请检查用户名或密码');
+            }
+        } catch (error) {
+            message.error('登录失败，请检查用户名或密码');
+        }
+        setLoading(false);
+    };
+
     return (
-        <>
-            <ConfigProvider
-                theme={{
-                    components: {
-                        Layout: {
-                            headerColor: '#ffffff',
-                            headerBg: '#fd0000',
-                            footerBg: '#000000'
-                        },
-                        Button: {
-                            colorPrimary: '#00b96b',
-                            algorithm: true, // 启用算法
-                        },
-                        Input: {
-                            colorPrimary: '#eb2f96',
-                            algorithm: true, // 启用算法
-                        }
-                    },
-                }}
-            >
-        <Layout className="layout">
-            <Header>
-                <div className="logo" >
-                    <img src={logo} alt="logo" style={{ width: '100px', height: '50px' }} />
+        <Form name="login" onFinish={onFinish}>
+            <Form.Item name="username" rules={[{ required: true, message: '请输入用户名!' }]}>
+                <Input placeholder="用户名" />
+            </Form.Item>
+            <Form.Item name="password" rules={[{ required: true, message: '请输入密码!' }]}>
+                <Input.Password placeholder="密码" />
+            </Form.Item>
+            <Form.Item>
+                <Button type="primary" htmlType="submit" loading={loading}>
                     登录
-                </div>
-            </Header>
-            <Content style={{ padding: '0 50px' }}>
-                <div className="site-layout-content">
-                    <LoginForm />
-                </div>
-            </Content>
-            <Footer style={{ textAlign: 'center' }}>
-                政务服务大厅 ©2024
-            </Footer>
-        </Layout>
-            </ConfigProvider>
-        </>
+                </Button>
+            </Form.Item>
+        </Form>
     );
-}
+};
 
-export default LoginPage;
+export default Login;
