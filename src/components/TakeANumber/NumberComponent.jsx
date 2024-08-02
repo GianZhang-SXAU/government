@@ -59,6 +59,7 @@ const NumberComponent = () => {
         );
         setData(updatedData);
     };
+
     // 使用 useEffect 监听 data 的变化，重新渲染表格
     useEffect(() => {
         console.log("数据改变:", data);
@@ -167,6 +168,7 @@ const NumberComponent = () => {
         },
     ];
 
+    // 对叫号数据进行数据过滤与修改
     const queueDataSource = queueData
         ? Object.keys(queueData.queue)
             .filter((key) => key !== "queueId" && key !== "calledTime") // 过滤掉队列ID和呼叫时间
@@ -205,7 +207,8 @@ const NumberComponent = () => {
             <Button type="primary" onClick={showDrawer}>
                 取号
             </Button>
-            <Drawer title="取号" onClose={onClose} open={open}>
+            {/*  点击取号按钮，在桌边弹出取号抽屉  */}
+            <Drawer title="取号" onClose={onClose} open={open} width={800}>
                 <Form layout="inline" onFinish={handleQuery}>
                     <Form.Item label="证件号" >
                         <Input
@@ -220,42 +223,44 @@ const NumberComponent = () => {
                         </Button>
                     </Form.Item>
                 </Form>
-            </Drawer>
-            <Drawer title="查询结果" onClose={onChildClose} open={visible} width={720}>
-                <Table
-                    rowKey="appointmentId"
-                    columns={columns}
-                    dataSource={data}
-
-                    pagination={false}
-                />
-                <Button
-                    type="primary"
-                    onClick={handleSubmit}
-                    disabled={!selectedRow}
-                    style={{ marginTop: "16px" }}
-                >
-                    提交选择项
-                </Button>
-                <Modal
-                    title="取号结果"
-                    visible={modalVisible}
-                    onOk={() => setModalVisible(false)}
-                    onCancel={() => setModalVisible(false)}
-                    footer={[
-                        <Button key="close" type="primary" onClick={() => setModalVisible(false)}>
-                            关闭
-                        </Button>,
-                    ]}
-                >
+                {/*  2层抽屉，进行取号  */}
+                <Drawer title="查询结果" onClose={onChildClose} open={visible} width={720}>
                     <Table
-                        rowKey="key"
-                        columns={queueColumns}
-                        dataSource={queueDataSource}
+                        rowKey="appointmentId"
+                        columns={columns}
+                        dataSource={data}
+
                         pagination={false}
                     />
-                </Modal>
+                    <Button
+                        type="primary"
+                        onClick={handleSubmit}
+                        disabled={!selectedRow}
+                        style={{ marginTop: "16px" }}
+                    >
+                        提交选择项
+                    </Button>
+                    <Modal
+                        title="取号结果"
+                        visible={modalVisible}
+                        onOk={() => setModalVisible(false)}
+                        onCancel={() => setModalVisible(false)}
+                        footer={[
+                            <Button key="close" type="primary" onClick={() => setModalVisible(false)}>
+                                关闭
+                            </Button>,
+                        ]}
+                    >
+                        <Table
+                            rowKey="key"
+                            columns={queueColumns}
+                            dataSource={queueDataSource}
+                            pagination={false}
+                        />
+                    </Modal>
+                </Drawer>
             </Drawer>
+
 
         </>
     );
