@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, message } from 'antd';
+import {Form, Input, Button, message, Card, ConfigProvider} from 'antd';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../store/index';
 import { useNavigate } from 'react-router-dom';
+import Login, {Banner} from "@react-login-page/page3";
 
-const Login = () => {
+const LoginPage = () => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+
 
     const API_URL = "http://localhost:8888";
 
@@ -37,6 +40,17 @@ const Login = () => {
     };
 
     return (
+        <>
+            政务服务大厅预约与排队系统
+        <h1>登录</h1>
+            <ConfigProvider
+                theme={{
+                    token: {
+                        lineWidth: 2,
+                    },
+                }}
+            >
+            <Card title="登录">
         <Form name="login" onFinish={onFinish}>
             <Form.Item name="username" rules={[{ required: true, message: '请输入用户名!' }]}>
                 <Input placeholder="用户名" />
@@ -50,7 +64,10 @@ const Login = () => {
                 </Button>
             </Form.Item>
         </Form>
+            </Card>
+            </ConfigProvider>
+        </>
     );
 };
 
-export default Login;
+export default LoginPage;
