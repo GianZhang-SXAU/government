@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {Button, Checkbox, Drawer, Form, Input, message, Modal, Radio, Table} from "antd";
+import { Button, Checkbox, Drawer, Form, Input, message, Modal, Radio, Table } from "antd";
 import axios from "axios";
 
 const NumberComponent = () => {
@@ -11,9 +11,9 @@ const NumberComponent = () => {
     const [visible, setVisible] = useState(false);
     const [modalVisible, setModalVisible] = useState(false); // 控制Modal显示
     const [queueData, setQueueData] = useState(null); // 存储返回的Queue数据
+    const [serviceNames, setServiceNames] = useState({}); // 存储服务名称
 
     const API_URL = 'http://127.0.0.1:8888';
-
 
     const handleQuery = async () => {
         setLoading(true);
@@ -48,16 +48,12 @@ const NumberComponent = () => {
     };
 
     const fetchServiceNames = async () => {
-        const updatedData = await Promise.all(
-            data.map(async (item) => {
-                const serviceResponse = await axios.get(`${API_URL}/api/services/${item.serviceId}`);
-                return {
-                    ...item,
-                    service_name: serviceResponse.data.description,
-                };
-            })
-        );
-        setData(updatedData);
+        const serviceResponse = await axios.get(`${API_URL}/api/services`);
+        const serviceData = serviceResponse.data.reduce((acc, item) => {
+            acc[item.serviceId] = item.description;
+            return acc;
+        }, {});
+        setServiceNames(serviceData);
     };
 
     // 使用 useEffect 监听 data 的变化，重新渲染表格
@@ -83,6 +79,7 @@ const NumberComponent = () => {
         try {
             const response = await axios.post(`${API_URL}/api/queues/queuemethod`, selectedRow);
             setQueueData(response.data); // 存储返回的Queue数据
+            await fetchServiceNames(); // 获取服务名称
             setModalVisible(true); // 显示Modal
             message.success("查询成功，数据已提交");
             console.log("Submitted data:", response.data);
@@ -176,9 +173,9 @@ const NumberComponent = () => {
                 // 获取队列值并格式化
                 const value = queueData.queue[key];
                 const formattedValue =
-                    typeof value === 'number' && key === 'queueNumber'
+                    (typeof value === 'number' && key === 'queueNumber'
                         ? value.toString().padStart(4, '0')
-                        : value;
+                        : value);
 
                 return {
                     key: key,
@@ -186,8 +183,6 @@ const NumberComponent = () => {
                 };
             })
         : [];
-
-
 
     const showDrawer = () => {
         setOpen(true);
@@ -201,7 +196,7 @@ const NumberComponent = () => {
         setVisible(false);
     };
 
-
+    // JSX页面结构
     return (
         <>
             <Button type="primary" onClick={showDrawer}>
@@ -229,7 +224,6 @@ const NumberComponent = () => {
                         rowKey="appointmentId"
                         columns={columns}
                         dataSource={data}
-
                         pagination={false}
                     />
                     <Button
@@ -260,8 +254,6 @@ const NumberComponent = () => {
                     </Modal>
                 </Drawer>
             </Drawer>
-
-
         </>
     );
 };

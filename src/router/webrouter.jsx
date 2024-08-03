@@ -7,6 +7,7 @@ import RegisterPage from "../pages/login/RegisterPage";
 import UserIndex from "../pages/index/UserIndex";
 import {Provider} from "react-redux";
 import store from "../store/index";
+import Dashboard from "../pages/Dashboard/Dashboard";
 
 
 const AppRouter = () => {
@@ -21,6 +22,7 @@ const AppRouter = () => {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/user" element={<UserIndex />} />
+                <Route path="/dash" element={<Dashboard/>}/>
             </Routes>
         </Router>
         </Provider>
