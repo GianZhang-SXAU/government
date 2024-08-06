@@ -11,7 +11,7 @@ import ManageAppointments from "../../components/appointments/ManageAppointments
 import CreateAppointment from "../../components/appointments/CreateAppointment";
 import QueueManagement from "../../components/queue/QueueComponent";
 import InformationManager from "../../components/information/InformationManager";
-
+import "./ReservePage.scss"
 const { Header, Content, Footer, Sider } = Layout;
 // eslint-disable-next-line react-hooks/rules-of-hooks
 // const [userInfo, setUserInfo] = useState(null);
