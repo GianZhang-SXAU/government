@@ -10,6 +10,10 @@ import {useNavigate} from 'react-router-dom'; // 用于页面导航
 import Login, {Banner} from "@react-login-page/page3"; // 引入自定义的登录页面组件和横幅组件
 import {ClockCircleOutlined, ContactsTwoTone, createFromIconfontCN} from "@ant-design/icons"; // 引入 Ant Design 的图标
 import "./LoginPage.scss"; // 引入自定义的样式文件
+import img_path from "../../asserts/梦幻花环.png"
+import Particles from "react-particles"; // 引入 Particles 组件
+import { loadFull } from "tsparticles"; // 引入 tsparticles 用于配置
+
 
 // 登录页面组件
 const LoginPage = () => {
@@ -51,12 +55,93 @@ const LoginPage = () => {
         setLoading(false); // 设置加载状态为 false
     };
 
+    // 粒子配置
+    const particlesInit = async (main) => {
+        await loadFull(main);
+    };
 
+    const particlesOptions = {
+        background: {
+            color: {
+                value: "#ffffff"
+            }
+        },
+        fpsLimit: 60,
+        interactivity: {
+            events: {
+                onClick: {
+                    enable: true,
+                    mode: "push",
+                },
+                onHover: {
+                    enable: true,
+                    mode: "repulse",
+                },
+                resize: true,
+            },
+            modes: {
+                push: {
+                    quantity: 4,
+                },
+                repulse: {
+                    distance: 100,
+                    duration: 0.4,
+                },
+            },
+        },
+        particles: {
+            color: {
+                value: "#000000",
+            },
+            links: {
+                color: "#000000",
+                distance: 150,
+                enable: true,
+                opacity: 0.5,
+                width: 1,
+            },
+            collisions: {
+                enable: true,
+            },
+            move: {
+                directions: "none",
+                enable: true,
+                outModes: {
+                    default: "bounce",
+                },
+                random: false,
+                speed: 2,
+                straight: false,
+            },
+            number: {
+                density: {
+                    enable: true,
+                    area: 800,
+                },
+                value: 80,
+            },
+            opacity: {
+                value: 0.5,
+            },
+            shape: {
+                type: "circle",
+            },
+            size: {
+                value: { min: 1, max: 5 },
+            },
+        },
+        detectRetina: true,
+    };
 
     return (
         <>
+            {/*<Particles id="tsparticles" init={particlesInit} options={particlesOptions} />*/}
             <div className="LoginPage">
-            <h3 className="title">政务服务大厅预约与排队系统</h3>
+                <div className="left">
+                    <img src={img_path} style={{width:400 ,height:400}} alt="logo" />
+                </div>
+                <div className="right">
+                      <h3 className="title">政务服务大厅预约与排队系统</h3>
 
             <ConfigProvider
                 theme={{
@@ -66,16 +151,17 @@ const LoginPage = () => {
                     components: {
                         Form: {
                             labelHeight: 50,
+
                         }
                     }
                 }}
             >
                 <Card title="登录" className="login-card">
                     <Form name="login" onFinish={onFinish} className="loginform">
-                        <Form.Item name="username" rules={[{required: true, message: '请输入用户名!'}]}>
+                        <Form.Item name="username" label="用户名" rules={[{required: true, message: '请输入用户名!'}]}>
                             <Input placeholder="用户名" prefix={<ContactsTwoTone/>}/>
                         </Form.Item>
-                        <Form.Item name="password" rules={[{required: true, message: '请输入密码!'}]}>
+                        <Form.Item name="password" label="密码" rules={[{required: true, message: '请输入密码!'}]}>
                             <Input.Password placeholder="密码" prefix={
                                 <svg t="1722896764451" className="icon"
                                      viewBox="0 0 1024 1024" version="1.1"
@@ -100,6 +186,7 @@ const LoginPage = () => {
                     </Form>
                 </Card>
             </ConfigProvider>
+                </div>
             </div>
         </>
     );
