@@ -6,7 +6,7 @@ import {Form, Input, Button, message, Card, ConfigProvider} from 'antd'; // 引�
 import axios from 'axios'; // 用于发送 HTTP 请求
 import {useDispatch} from 'react-redux'; // 用于触发 Redux actions
 import {setUser} from '../../store/index'; // 导入 Redux action，用于设置用户状态
-import {useNavigate} from 'react-router-dom'; // 用于页面导航
+import {Link, useNavigate} from 'react-router-dom'; // 用于页面导航
 import Login, {Banner} from "@react-login-page/page3"; // 引入自定义的登录页面组件和横幅组件
 import {ClockCircleOutlined, ContactsTwoTone, createFromIconfontCN} from "@ant-design/icons"; // 引入 Ant Design 的图标
 import "./LoginPage.scss"; // 引入自定义的样式文件
@@ -178,6 +178,7 @@ const LoginPage = () => {
                                         fill="#E5404F" p-id="1650"></path>
                                 </svg>}/>
                         </Form.Item>
+                        <Link to="/register"> 没有账户？请点击这里注册</Link>
                         <Form.Item style={{textAlign:"center"}}>
                             <Button type="primary" htmlType="submit" loading={loading}>
                                 登录
