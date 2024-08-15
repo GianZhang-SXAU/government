@@ -84,7 +84,7 @@ const ChatComponent = () => {
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', height: '87vh' }}>
-            <div style={{ flex: 1, overflowY: 'auto', padding: '10px', backgroundColor: '#f5f5f5' }}>
+            <div style={{ flex: 1, overflowY: 'auto', padding: '5px', backgroundColor: '#f5f5f5' }}>
                 <List
                     dataSource={messages}
                     renderItem={item => (
@@ -99,7 +99,7 @@ const ChatComponent = () => {
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                 {item.role === 'assistant' && item.content !== '正在加载中...' && (
                                     <Avatar
-                                        size={20}
+                                        size={30}
                                         style={{
                                             backgroundColor: '#87d068',
                                             marginRight: '8px'
@@ -124,7 +124,7 @@ const ChatComponent = () => {
                                 </div>
                                 {item.role === 'user' && (
                                     <Avatar
-                                        size={20}
+                                        size={30}
                                         style={{
                                             backgroundColor: '#f56a00',
                                             marginLeft: '8px'

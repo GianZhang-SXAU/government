@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Drawer, Input, List } from 'antd';
 import { MessageOutlined } from '@ant-design/icons';
 import ChatComponent from "./ChatComponent";
+import img_path from "../../asserts/img/智能助理.png"
 
 const ChatButton = () => {
     const [visible, setVisible] = useState(false);
@@ -32,8 +33,8 @@ const ChatButton = () => {
                     bottom: 20,
                     right: 20,
                     zIndex: 1000,
-                    width: 30,
-                    height: 30,
+                    width: 50,
+                    height: 50,
                     borderRadius: '50%',
                     backgroundColor: '#1890ff', // Ant Design blue color
                     color: '#fff',
@@ -43,7 +44,7 @@ const ChatButton = () => {
                 }}
                 onClick={showDrawer}
             >
-                智能助理
+                <img src={img_path} alt="智能助理" width={35} height={35} />
             </Button>
             <Drawer
                 title="智能助理"
