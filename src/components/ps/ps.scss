@@ -1,0 +1,54 @@
+.ps{
+  padding: 20px;
+  text-align: center;
+  .preview-container {
+    margin-top: 20px;
+  }
+
+  .print-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .print-row {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0;
+  }
+
+  .print-image {
+    width: 150px;
+    height: 200px;
+    margin: 5px;
+    border: 1px solid #ddd;
+  }
+
+  @media print {
+    .print-layout {
+      display: block;
+    }
+
+    body * {
+      visibility: hidden;
+    }
+
+    .print-layout,
+    .print-layout * {
+      visibility: visible;
+    }
+
+    .print-layout {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    .app-container {
+      display: none;
+    }
+  }
+}

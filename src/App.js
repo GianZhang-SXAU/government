@@ -2,6 +2,7 @@ import './App.css';
 import AppRouter from "./router/webrouter";
 import {Watermark} from "antd";
 import ChatButton from "./components/chat/ChatButton";
+import PSButton from "./components/ps/PSButton";
 
 
 
@@ -31,6 +32,7 @@ function App() {
     <div className="App">
         <Watermark content={['政务大厅预约与排队系统', '山西农业大学 张建安 20211613612']}>
             <AppRouter/>
+            <PSButton/>
             <ChatButton/>
         </Watermark>
     </div>
