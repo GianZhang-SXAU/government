@@ -6,7 +6,7 @@ import moment from "moment/moment";
 *
 * @Author: 张建安
 * @Date: 2024/8/24
-* @Description：评论管理相关界面
+* @Description：留言管理相关界面
 *
 * */
 
@@ -31,7 +31,7 @@ const CommentManagement = () => {
     * @Date: 2024/8/24
     * @Param：
     * @Return：
-    * @Description：获取所有评论
+    * @Description：获取所有留言
     * */
     const fetchComments = async () => {
         setLoading(true);
@@ -39,8 +39,8 @@ const CommentManagement = () => {
             const response = await axios.get(`${API_BASE_URL}/comments`);
             setComments(response.data);
         } catch (error) {
-            console.error('获取评论信息失败:', error);
-            message.error('获取评论信息失败');
+            console.error('获取留言信息失败:', error);
+            message.error('获取留言信息失败');
         } finally {
             setLoading(false);
         }
@@ -80,12 +80,12 @@ const CommentManagement = () => {
     * @Date: 2024/8/24
     * @Param：commentId
     * @Return：
-    * @Description：删除评论
+    * @Description：删除留言
     * */
     const handleDelete = async (commentId) => {
         try {
-            await axios.delete(`${API_BASE_URL}/${commentId}`);
-            message.success('评论删除成功');
+            await axios.delete(`${API_BASE_URL}/comment/${commentId}`);
+            message.success('留言删除成功');
             fetchComments();
         } catch (error) {
             console.error('删除预约失败:', error);
@@ -99,24 +99,36 @@ const CommentManagement = () => {
     * @Date: 2024/8/24
     * @Param：
     * @Return：
-    * @Description：添加与修改评论
+    * @Description：添加与修改留言
     * */
     const handleModalOk = async () => {
         try {
             const values = await form.validateFields();
-            if (currentComment) {
-                await axios.put(`${API_BASE_URL}/${currentComment.commentId}`, values);
-                message.success('评论修改成功');
-            } else {
-                await axios.post(`${API_BASE_URL}`, values);
-                message.success('预约添加成功');
+            const user = users.find(u => u.idCard === values.idCard);
+            if (!user) {
+                message.error('未找到对应的用户');
+                return;
             }
-            fetchComments();
+
+            const dataToSend = {
+                ...values,
+                userId: user.userId,
+            };
+
+            if (currentComment) {
+                await axios.put(`${API_BASE_URL}/comment/update`, dataToSend);
+                message.success('留言修改成功');
+            } else {
+                await axios.post(`${API_BASE_URL}/comment`, dataToSend);
+                message.success('留言添加成功');
+            }
+
+            await fetchComments();
             setModalVisible(false);
             form.resetFields();
         } catch (error) {
-            console.error('保存评论失败:', error);
-            message.error('保存评论失败');
+            console.error('保存留言失败:', error);
+            message.error('保存留言失败');
         }
     };
 
@@ -126,41 +138,43 @@ const CommentManagement = () => {
      * @Date: 2024/8/24
      * @Param：
      * @Return：
-     * @Description：获取所有评论
+     * @Description：获取所有留言
      * */
-    const handleEdit = (comments) => {
-        setCurrentComment(comments);
-        setModalTitle('修改评论');
+    const handleEdit = (comment) => {
+        const user = users.find(u => u.userId === comment.userId);
+        setCurrentComment(comment);
+        setModalTitle('修改留言');
         setModalVisible(true);
         form.setFieldsValue({
-            ...comments,
-            createdAt: comments.createdAt ? moment(comments.createdAt) : null
+            ...comment,
+            idCard: user?.idCard,
+            serviceId: comment.serviceId,
+            createdAt: comment.createdAt ? moment(comment.createdAt) : null,
         });
     };
-
 
     /*
      * @Author: 张建安
      * @Date: 2024/8/24
      * @Param：
      * @Return：
-     * @Description：获取所有评论
+     * @Description：获取所有留言
      * */
     const handleAdd = () => {
         setCurrentComment(null);
-        setModalTitle('新增评论');
+        setModalTitle('新增留言');
         setModalVisible(true);
         form.resetFields();
     };
 
     const columns = [
         {
-            title: '评论ID',
+            title: '留言ID',
             dataIndex: 'commentId',
             key: 'commentId',
         },
         {
-            title: '评论人证件号',
+            title: '留言人证件号',
             dataIndex: 'userId',
             key: 'userId',
             render: (userId) => users.find(u => u.userId === userId)?.idCard,
@@ -172,7 +186,7 @@ const CommentManagement = () => {
             render: (serviceId) => services.find(s => s.serviceId === serviceId)?.description
         },
         {
-            title: '评论内容',
+            title: '留言内容',
             dataIndex: 'content',
             key: 'content',
         },
@@ -189,7 +203,7 @@ const CommentManagement = () => {
                     <Button type="link" onClick={() => handleEdit(record)}>编辑</Button>
                     <Popconfirm
                         title="确定要删除这条预约吗？"
-                        onConfirm={() => handleDelete(record.appointmentId)}
+                        onConfirm={() => handleDelete(record.commentId)}
                         okText="确定"
                         cancelText="取消"
                     >
@@ -204,14 +218,16 @@ const CommentManagement = () => {
     return (
         <div>
             <Button type="primary" onClick={handleAdd} style={{marginBottom: 16}}>
-                新增评论
+                新增留言
             </Button>
+            {/*展示所有留言*/}
             <Table
                 columns={columns}
                 dataSource={comments}
-                rowKey="appointmentId"
+                rowKey="commentId"
                 loading={loading}
             />
+            {/*增加和修改留言的表单*/}
             <Modal
                 title={modalTitle}
                 visible={modalVisible}
@@ -220,11 +236,11 @@ const CommentManagement = () => {
             >
                 <Form form={form} layout="vertical">
                     <Form.Item
-                        name="username"
-                        label="预约人"
-                        rules={[{required: true, message: '请输入预约人'}]}
+                        name="idCard"
+                        label="留言人身份证号"
+                        rules={[{ required: true, message: '请输入留言人身份证号' }]}
                     >
-                        <Input/>
+                        <Input />
                     </Form.Item>
                     <Form.Item
                         name="serviceId"
@@ -238,6 +254,13 @@ const CommentManagement = () => {
                                 </Select.Option>
                             ))}
                         </Select>
+                    </Form.Item>
+                    <Form.Item
+                        name="content"
+                        label="留言内容"
+                        rules={[{ required: true, message: '请输入留言内容' }]}
+                    >
+                        <Input.TextArea />
                     </Form.Item>
                 </Form>
             </Modal>
