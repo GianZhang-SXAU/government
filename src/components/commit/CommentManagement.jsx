@@ -16,6 +16,7 @@ const CommentManagement = () => {
     // TODO 开发环境中使用该地址，在实际生产环境进行更换
     const API_SERVICE_URL = 'http://127.0.0.1:8888/api/services';
     const API_USERS_URL = 'http://127.0.0.1:8888/api/users';
+    //React Hook区
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(false);
     const [services, setServices] = useState([]);
@@ -99,22 +100,24 @@ const CommentManagement = () => {
     * @Date: 2024/8/24
     * @Param：
     * @Return：
-    * @Description：添加与修改留言
+    * @Description：添加与修改留言的请求方法
     * */
     const handleModalOk = async () => {
         try {
+            // 设置请求的参数值
             const values = await form.validateFields();
+            // 通过User的ID值，查询一下是哪位用户
             const user = users.find(u => u.idCard === values.idCard);
             if (!user) {
                 message.error('未找到对应的用户');
                 return;
             }
-
+            // 定义一个方法，用来对发生的数据对象进行解构，然后修改userId的值
             const dataToSend = {
                 ...values,
                 userId: user.userId,
             };
-
+            // 检查是新增还是修改，返回不同的方法
             if (currentComment) {
                 await axios.put(`${API_BASE_URL}/comment/update`, dataToSend);
                 message.success('留言修改成功');
@@ -122,7 +125,7 @@ const CommentManagement = () => {
                 await axios.post(`${API_BASE_URL}/comment`, dataToSend);
                 message.success('留言添加成功');
             }
-
+            // 响应成功后，刷新评论，重新渲染
             await fetchComments();
             setModalVisible(false);
             form.resetFields();
@@ -132,13 +135,12 @@ const CommentManagement = () => {
         }
     };
 
-
     /*
      * @Author: 张建安
      * @Date: 2024/8/24
      * @Param：
      * @Return：
-     * @Description：获取所有留言
+     * @Description：修改留言的填充方法
      * */
     const handleEdit = (comment) => {
         const user = users.find(u => u.userId === comment.userId);
@@ -167,6 +169,11 @@ const CommentManagement = () => {
         form.resetFields();
     };
 
+    /*
+    * @Author: 张建安
+    * @Date: 2024/8/24
+    * @Description：展示留言用的表单
+    * */
     const columns = [
         {
             title: '留言ID',
