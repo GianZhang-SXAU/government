@@ -12,6 +12,7 @@ import CreateAppointment from "../../components/appointments/CreateAppointment";
 import QueueManagement from "../../components/queue/QueueComponent";
 import InformationManager from "../../components/information/InformationManager";
 import "./ReservePage.scss"
+import CommentManagement from "../../components/commit/CommentManagement";
 const { Header, Content, Footer, Sider } = Layout;
 // eslint-disable-next-line react-hooks/rules-of-hooks
 // const [userInfo, setUserInfo] = useState(null);
@@ -22,7 +23,7 @@ const UserProfilePage = () => <div><InformationManager/></div>;
 const ViewReservationPage = () => <div><ManageAppointments/></div>;
 const ViewQueuePage = () => <div><QueueManagement/></div>;
 const ManageServicesPage = () => <div><ServiceManagement/></div>;
-const ServiceFeedbackPage = () => <div>服务评价内容</div>;
+const ServiceFeedbackPage = () => <div><CommentManagement/></div>;
 const WindowsPage = () => <div><WindowManagement/></div>;
 
 // userInfo = JSON.parse(localStorage.getItem('userInfo'));

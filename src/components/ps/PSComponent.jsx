@@ -10,11 +10,20 @@ const PSComponent = () => {
     const [processedImageUrl, setProcessedImageUrl] = useState(null);
     const [selectedColor, setSelectedColor] = useState("#ffffff");
     const canvasRef = useRef(null);
+    // 上传照片后执行抠图的操作
 
+    /*
+    * @Author: 张建安
+    * @Data: 2024/8/25
+    * @param: Promise
+    * @return:
+    * */
     const handleChange = async (info) => {
         if (info.file.status === "done" || info.file.originFileObj) {
             const file = info.file.originFileObj;
+            // 新建文件读取对象
             const reader = new FileReader();
+            // 调用removeBackground()方法，将图片转化为Base64格式，然后执行抠图操作
             reader.onload = async (e) => {
                 const imageBase64 = e.target.result;
                 try {
@@ -24,13 +33,21 @@ const PSComponent = () => {
                     message.error("抠图失败，请重试。");
                 }
             };
+            // 返回图片的地址
             reader.readAsDataURL(file);
         }
     };
 
+    /*
+     * @Author: 张建安
+     * @Data: 2024/8/25
+     * @param: Promise
+     * @return: URL.createObjectURL(resultBlob); // 返回一个可以用作 <img> src 的 URL
+     * */
+    // 抠图的方法
     const removeBackground = async (imageBase64) => {
-        const apiKey = "sXtVfpE1fwKQPFTeEAMwNNz3"; // 替换为你的 API 密钥
-        const url = "https://api.remove.bg/v1.0/removebg";
+        const apiKey = "sXtVfpE1fwKQPFTeEAMwNNz3"; // API 密钥
+        const url = "https://api.remove.bg/v1.0/removebg"; //抠图的请求地址
 
         const formData = new FormData();
         formData.append("image_file_b64", imageBase64.split(",")[1]);
@@ -58,12 +75,20 @@ const PSComponent = () => {
         }
     };
 
+    // 利用Hook监听图片地址以及图片颜色的方法
     useEffect(() => {
         if (imageUrl && canvasRef.current) {
             processImage(imageUrl, selectedColor);
         }
     }, [imageUrl, selectedColor]);
 
+    /*
+         * @Author: 张建安
+         * @Data: 2024/8/25
+         * @param: imgSrc, backgroundColor
+         * @return:
+         * */
+    // Canvas的方法，用来加载方法
     const processImage = (imgSrc, backgroundColor) => {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
@@ -84,6 +109,13 @@ const PSComponent = () => {
         setSelectedColor(value);
     };
 
+    /*
+         * @Author: 张建安
+         * @Data: 2024/8/25
+         * @param:
+         * @return:
+         * */
+    // 打印证件照的方法
     const handlePrint = () => {
         const printArea = document.createElement("div");
         printArea.style.display = "none";
