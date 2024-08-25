@@ -1,20 +1,24 @@
-// src/components/QueueManagement.js
 import React, { useState, useEffect } from 'react';
 import {Form, Input, Button, Table, message, Modal, Tag, Select} from 'antd';
 import axios from 'axios';
 
 const { Column } = Table;
 
+/*
+ * @Author: 张建安
+ * @Date: 2024/8/24
+ * @Description：排队叫号的相关组件
+ * @version: 1.0.1
+ * */
 const QueueManagement = () => {
+    const API_URL = 'http://127.0.0.1:8888';
+    // React Hook区
     const [documentNumber, setDocumentNumber] = useState('');
     const [queues, setQueues] = useState([]);
     const [windows, setWindows] = useState([]);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [editingQueue, setEditingQueue] = useState(null);
     const [form] = Form.useForm();
-    const API_URL = 'http://127.0.0.1:8888';
-
-
 
     useEffect(() => {
         fetchAllQueues();
@@ -123,13 +127,22 @@ const QueueManagement = () => {
     };
 
     /*
-     * @Author: 张建安
-     * @Date: 2024/8/24
-     * @Description：删除队列的方法
-     * */
+   * @Author: 张建安
+   * @Date: 2024/8/24
+   * @Description：更新队列信息，更新表单中的数据并处理 createdAt 为空的情况
+   * */
     const handleOk = async () => {
         try {
-            await axios.put(`${API_URL}/api/queues/${editingQueue.queueId}`, form.getFieldsValue());
+            // 获取表单中的值
+            const formData = form.getFieldsValue();
+            // 检查 createdAt 是否为空，若为空则赋予当前时间
+            const updatedQueue = {
+                ...editingQueue,  // 保留原始的队列数据
+                ...formData,  // 覆盖表单中的新数据
+                createdAt: editingQueue.createdAt || new Date().toISOString(), // 若为空，赋予当前时间
+            };
+            // 发送更新请求
+            await axios.put(`${API_URL}/api/queues/${editingQueue.queueId}`, updatedQueue);
             message.success('队列更新成功');
             setIsModalVisible(false);
             fetchAllQueues();
@@ -137,6 +150,8 @@ const QueueManagement = () => {
             message.error('更新队列失败');
         }
     };
+
+
 
     // 取消编辑的方法
     const handleCancel = () => {
