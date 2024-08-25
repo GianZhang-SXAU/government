@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Layout, Menu, Table, Card } from 'antd';
 import ReactEcharts from 'echarts-for-react';
 import axios from 'axios';
+import {useSelector} from "react-redux";
 
 const { Header, Content, Footer } = Layout;
 
 const IndexComponent = () => {
-    const [userName, setUserName] = useState(null); // 用户名状态
+    const user = useSelector((state) => state.user.data);
     const [serviceData, setServiceData] = useState([]); // 服务数据
     const [queueData, setQueueData] = useState([]); // 排队数据
+
 
     useEffect(() => {
         // 模拟从服务器获取数据
@@ -78,8 +80,8 @@ const IndexComponent = () => {
                 <div className="site-layout-content" style={{ margin: '16px 0' }}>
                     <Card>
                         <h2>
-                            {userName
-                                ? `欢迎${userName}使用政务服务大厅预约与排队系统`
+                            {user
+                                ? `欢迎 ${user.username}用户 使用政务服务大厅预约与排队系统`
                                 : '欢迎使用政务服务大厅预约与排队系统，请先登录'}
                         </h2>
                     </Card>

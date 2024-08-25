@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Layout, Menu, Breadcrumb} from 'antd';
 import { UserOutlined, ScheduleOutlined, TeamOutlined, FormOutlined, HomeOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
+
 import FormPage from "../form/Form";
 import IndexComponent from "../../components/IndexComponent";
 import ServiceManagement from "../../components/ServiceManagementComponent";
@@ -13,12 +14,17 @@ import QueueManagement from "../../components/queue/QueueComponent";
 import InformationManager from "../../components/information/InformationManager";
 import "./ReservePage.scss"
 import CommentManagement from "../../components/commit/CommentManagement";
+import Information from "../../components/information/Information";
+import {useSelector} from "react-redux";
 const { Header, Content, Footer, Sider } = Layout;
 // eslint-disable-next-line react-hooks/rules-of-hooks
 // const [userInfo, setUserInfo] = useState(null);
-// Placeholder Components
+
+
+// 组件定义
 const HomePage = () => <div><IndexComponent/></div>;
 const QuickReservePage = () => <div><CreateAppointment/></div>;
+const UserPage = () => <div><Information/></div>
 const UserProfilePage = () => <div><InformationManager/></div>;
 const ViewReservationPage = () => <div><ManageAppointments/></div>;
 const ViewQueuePage = () => <div><QueueManagement/></div>;
@@ -34,6 +40,7 @@ const WindowsPage = () => <div><WindowManagement/></div>;
 //     message.success('已退出登录');
 //
 // };
+
 
 
 class ReservePage extends React.Component {
@@ -55,14 +62,13 @@ class ReservePage extends React.Component {
     topMenuMapping = {
         '1': { title: '首页', component: HomePage, icon: <HomeOutlined /> },
         '2': { title: '快捷预约', component: QuickReservePage, icon: <AppstoreOutlined /> },
-        '3': { title: '个人中心', component: UserProfilePage, icon: <UserOutlined /> },
+        '3': { title: '个人中心', component: UserPage, icon: <UserOutlined /> },
     };
 
     sideMenuMapping = {
         '1': { title: '个人信息修改', component: UserProfilePage, icon: <UserOutlined /> },
         '2': { title: '预约信息查看', component: ViewReservationPage, icon: <ScheduleOutlined /> },
         '3': { title: '排队信息查看', component: ViewQueuePage, icon: <TeamOutlined /> },
-
         '4': { title: '政务服务管理', component: ManageServicesPage, icon: <FormOutlined /> },
         '5': { title: '服务评价管理', component: ServiceFeedbackPage, icon: <FormOutlined /> },
         '6': { title: '服务窗口管理', component: WindowsPage, icon: <FormOutlined /> },

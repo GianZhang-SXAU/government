@@ -135,11 +135,13 @@ const QueueManagement = () => {
         try {
             // 获取表单中的值
             const formData = form.getFieldsValue();
+            // 获取当前日期，格式化为 YYYY-MM-DD
+            const currentDate = new Date().toISOString().split('T')[0];
             // 检查 createdAt 是否为空，若为空则赋予当前时间
             const updatedQueue = {
                 ...editingQueue,  // 保留原始的队列数据
                 ...formData,  // 覆盖表单中的新数据
-                createdAt: editingQueue.createdAt || new Date().toISOString(), // 若为空，赋予当前时间
+                createdAt: editingQueue.createdAt || currentDate, // 若为空，赋予当前时间
             };
             // 发送更新请求
             await axios.put(`${API_URL}/api/queues/${editingQueue.queueId}`, updatedQueue);
