@@ -21,13 +21,15 @@ const InformationManager = () => {
 
     const [form] = Form.useForm();
 
+    const regionData = json; // JSON数据接口赋值
+
     const onDocTypeChange = (e) => {
         setDocType(e.target.value);
         form.resetFields(['idCard']);
     };
 
     // 将数据转化为Ant Design Cascader 组件可用的数据格式
-    const options = Object.entries(provinces).map(([province, districts]) => ({
+    const options = Object.keys(regionData).entries(provinces).map(([province, districts]) => ({
         value: province,
         label: province,
         children: Object.entries(districts).map(([district, cities]) => ({
@@ -41,7 +43,7 @@ const InformationManager = () => {
     }));
 
     // 身份证号校验
-    const validateIdCard = (rule, value) => {
+    const UservalidateIdCard = (rule, value) => {
         const idCardRegex = /^[1-9]\d{5}(18|19|20)?\d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2]\d|3[0-1])\d{3}(\d|X)$/i;
         if (!value || idCardRegex.test(value)) {
             return Promise.resolve();
@@ -111,7 +113,6 @@ const InformationManager = () => {
                 <p><strong>用户名:</strong> {user.name || user.username}</p>
                 <p><strong>电话:</strong> {user.phone}</p>
                 {userType === 'user' && (
-
                     <>
                         <p><strong>身份证号:</strong> {user.idcard}</p>
                         <p><strong>所在地区:</strong> {user.location}</p>
@@ -165,7 +166,7 @@ const InformationManager = () => {
                                     label="身份证号码"
                                     rules={[
                                         { required: true, message: '请输入身份证号码' },
-                                        { validator: validateIdCard },
+                                        { validator: UservalidateIdCard },
                                     ]}
                                 >
                                     <Input placeholder="请输入身份证号码" />
