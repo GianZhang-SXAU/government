@@ -9,6 +9,7 @@ import InformationManager from "../../components/information/InformationManager"
 import ManageAppointments from "../../components/appointments/ManageAppointments";
 import NumberComponent from "../../components/TakeANumber/NumberComponent";
 import UserIndexComponent from "../../components/UserIndexComponent";
+import UserAppointmentComponent from "../../components/userAppointment/UserAppointmentComponent";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -25,7 +26,7 @@ const QuickReservePage = () => <div><CreateAppointment/></div>;
 const UserPage = () => <div><Information/></div>
 const UserProfilePage = () => <div><InformationManager/></div>;
 const QueuePage = () => <div><NumberComponent/></div>;
-const AppiontmentPage = () => <div>预约查询与修改</div>;
+const AppiontmentPage = () => <div><UserAppointmentComponent/></div>;
 const CommentPage = () => <div>留言评论</div>
 
 export class UserIndex extends React.Component {
