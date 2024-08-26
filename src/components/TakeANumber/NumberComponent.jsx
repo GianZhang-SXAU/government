@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
-import { Button, Checkbox, Drawer, Form, Input, message, Modal, Radio, Table } from "antd";
+import React, { useEffect, useState } from "react";
+import {Button, Checkbox, Drawer, Form, Input, message, Modal, Radio, Select, Table, Tag} from "antd";
 import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
 
 const NumberComponent = () => {
+    // React Hook区
     const [open, setOpen] = useState(false);
     const [documentNumber, setDocumentNumber] = useState("");
     const [data, setData] = useState([]);
@@ -12,6 +14,16 @@ const NumberComponent = () => {
     const [modalVisible, setModalVisible] = useState(false); // 控制Modal显示
     const [queueData, setQueueData] = useState(null); // 存储返回的Queue数据
     const [serviceNames, setServiceNames] = useState({}); // 存储服务名称
+    const [queues, setQueues] = useState([]);
+    const [windows, setWindows] = useState([]);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [editingQueue, setEditingQueue] = useState(null);
+    const [form] = Form.useForm();
+
+    const user = useSelector((state) => state.user.data);
+    const userType = useSelector((state) => state.user.type);
+
+    const dispatch = useDispatch();
 
     const API_URL = 'http://127.0.0.1:8888';
 
@@ -83,6 +95,7 @@ const NumberComponent = () => {
             setModalVisible(true); // 显示Modal
             message.success("查询成功，数据已提交");
             console.log("Submitted data:", response.data);
+            await handleSearch();
         } catch (error) {
             console.error("Error submitting selected data:", error);
             message.error("提交失败，请重试");
@@ -184,6 +197,157 @@ const NumberComponent = () => {
             })
         : [];
 
+    useEffect(() => {
+        handleSearch();
+        fetchAllWindows();
+    }, []);
+
+
+    /*
+     * @Author: 张建安
+     * @Date: 2024/8/24
+     * @Param：
+     * @Return：
+     * @Description：获取所有窗口信息
+     * */
+    const fetchAllWindows = async () => {
+        try {
+            const response = await axios.get(`${API_URL}/windows`)
+            console.info(response);
+            setWindows(response.data);
+        } catch (error) {
+            console.log("查询窗口信息失败："+error);
+            message.error("查询窗口信息失败")
+        }
+    }
+
+    /*
+     * @Author: 张建安
+     * @Date: 2024/8/24
+     * @Param：
+     * @Return：
+     * @Description：根据身份证号查询排队信息
+     * */
+    const handleSearch = async () => {
+        try {
+            const response = await axios.get(
+                `${API_URL}/api/queues/byDocumentNumber?documentNumber=${user.idCard}`);
+            setQueues(response.data);
+        } catch (error) {
+            message.error('查询叫号信息失败！');
+        }
+    };
+
+    /*
+     * @Author: 张建安
+     * @Date: 2024/8/24
+     * @Description：删除队列的方法
+     * */
+    const handleDeleteQueue = async queueId => {
+        try {
+            await axios.delete(`${API_URL}/api/queues/${queueId}`);
+            message.success('成功删除队列');
+
+        } catch (error) {
+            message.error('删除队列失败');
+        }
+    };
+
+    /*
+   * @Author: 张建安
+   * @Date: 2024/8/24
+   * @Description：更新队列信息，更新表单中的数据并处理 createdAt 为空的情况
+   * */
+    const handleOk = async () => {
+        try {
+            // 获取表单中的值
+            const formData = form.getFieldsValue();
+            // 获取当前日期，格式化为 YYYY-MM-DD
+            const currentDate = new Date().toISOString().split('T')[0];
+            // 检查 createdAt 是否为空，若为空则赋予当前时间
+            const updatedQueue = {
+                ...editingQueue,  // 保留原始的队列数据
+                ...formData,  // 覆盖表单中的新数据
+                createdAt: editingQueue.createdAt || currentDate, // 若为空，赋予当前时间
+            };
+            // 发送更新请求
+            await axios.put(`${API_URL}/api/queues/${editingQueue.queueId}`, updatedQueue);
+            message.success('队列更新成功');
+            setIsModalVisible(false);
+        } catch (error) {
+            message.error('更新队列失败');
+        }
+    };
+
+    // 取消编辑的方法
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+
+    const statusMap = {
+        waiting: '请等待',
+        processing: '进行中',
+        completed: '已完成',
+    };
+
+    const statusColorMap = {
+        waiting: '#faad14', // 黄色
+        processing: '#52c41a', // 绿色
+        completed: '#2db7f5', // 蓝色
+    };
+
+    const columns2 = [
+        {
+            title:"排队ID",
+            dataIndex: 'queueId',
+            key: 'queueId',
+        },
+        {
+            title:"预约ID",
+            dataIndex: 'appointmentId',
+            key: 'appointmentId',
+        },
+        {
+            title:"号码",
+            dataIndex: 'queueNumber',
+            key: 'queueNumber',
+        },
+        {
+            title:"排队状态",
+            dataIndex: 'queueStatus',
+            key: 'queueStatus',
+            render: (text) => (
+                <Tag color={statusColorMap[text] || '#363636'}>
+                    {statusMap[text]}
+                </Tag>
+            )
+        },
+        {
+            title:"叫号时间",
+            dataIndex: 'calledTime',
+            key: 'calledTime',
+        },
+        {
+            title:"窗口名称",
+            dataIndex: 'windowId',
+            key: 'windowId',
+            render: (windowId) => windows.find(w => w.windowId === windowId)?.windowName
+        },
+        {
+            title:"操作",
+            key: 'action',
+            render: (text, record) => (
+                <span>
+                    <Button onClick={() => handleDeleteQueue(record.queueId)}
+                            style={{ marginLeft: 8 }}>
+                        删除
+                    </Button>
+                </span>
+            )
+        },
+    ]
+
     const showDrawer = () => {
         setOpen(true);
     };
@@ -199,9 +363,55 @@ const NumberComponent = () => {
     // JSX页面结构
     return (
         <>
+            {/*取号功能按钮*/}
             <Button type="primary" onClick={showDrawer}>
                 取号
             </Button>
+
+            {/*展示所有的排队信息*/}
+            <Table
+                dataSource={queues}
+                rowKey="queueId"
+                columns={columns2}
+            />
+
+            {/*编辑排队信息的表单*/}
+            <Modal
+                title="编辑排队信息"
+                visible={isModalVisible}
+                onOk={handleOk}
+                onCancel={handleCancel}
+            >
+
+                <Form form={form} layout="vertical">
+
+                    <Form.Item
+                        name="queueStatus"
+                        label="排队状态">
+                        <Select>
+                            {Object.keys(statusMap).map(key => (
+                                <Select.Option key={key} value={key}>
+                                    {statusMap[key]}
+                                </Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+
+                    <Form.Item
+                        name="windowId"
+                        label="窗口">
+                        <Select>
+                            {windows.map(window => (
+                                <Select.Option key={window.windowId} value={window.windowId}>
+                                    {window.windowName}
+                                </Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+
+                </Form>
+            </Modal>
+
             {/*  点击取号按钮，在桌边弹出取号抽屉  */}
             <Drawer title="取号" onClose={onClose} open={open} width={800}>
                 <Form layout="inline" onFinish={handleQuery}>
