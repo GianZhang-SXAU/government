@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import {Button, Card, Modal, Form, Input, message, Radio, Space, Cascader} from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios';
-import { setUser } from '../../store/index';  // 假设 store 文件名为 store.js
+import { setUser } from '../../store/index';
 import json from '../../asserts/pca.json';
 import {useNavigate} from "react-router-dom";
 import provinces from "../../asserts/pca.json";
 
 const InformationManager = () => {
     const API_URL_ADMIN = "http://127.0.0.1:8888/admin";
+    const API_URL_USER = "http://127.0.0.1:8888/api/users";
     const user = useSelector((state) => state.user.data);
     const userType = useSelector((state) => state.user.type);
 
@@ -29,18 +30,22 @@ const InformationManager = () => {
     };
 
     // 将数据转化为Ant Design Cascader 组件可用的数据格式
-    const options = Object.keys(regionData).entries(provinces).map(([province, districts]) => ({
+    const regionOptions = Object.keys(regionData).map(province => ({
         value: province,
         label: province,
-        children: Object.entries(districts).map(([district, cities]) => ({
-            value: district,
-            label: district,
-            children: cities.map(city => ({
-                value: city,
-                label: city
+        children: Object.keys(regionData[province]).map(city => ({
+            value: city,
+            label: city,
+            children: regionData[province][city].map(district => ({
+                value: district,
+                label: district
             }))
         }))
     }));
+
+    const atlocal = user.province && user.city && user.district
+        ? [user.province, user.city, user.district]
+        : [];
 
     // 身份证号校验
     const UservalidateIdCard = (rule, value) => {
@@ -62,6 +67,13 @@ const InformationManager = () => {
 
     const showModal = () => {
         setIsModalVisible(true);
+
+        // 重新设置表单的初始值，包括封装后的 atlocal 数据
+        form.setFieldsValue({
+            ...user,
+            atlocal: atlocal.length ? atlocal : undefined
+        });
+
     };
 
     const handleOk = () => {
@@ -77,7 +89,7 @@ const InformationManager = () => {
 
             // 根据用户类型设置请求URL
             const url = userType === 'user'
-                ? `#`  // 普通用户的请求URL
+                ? `${API_URL_USER}/${user.userId}`  // 普通用户的请求URL
                 : `${API_URL_ADMIN}/profile`; // 管理员的请求URL
 
             axios.put(url, values)
@@ -114,7 +126,7 @@ const InformationManager = () => {
                 <p><strong>电话:</strong> {user.phone}</p>
                 {userType === 'user' && (
                     <>
-                        <p><strong>身份证号:</strong> {user.idcard}</p>
+                        <p><strong>身份证号:</strong> {user.idCard}</p>
                         <p><strong>所在地区:</strong> {user.location}</p>
                         <p><strong>县:</strong> {user.city}</p>
                         <p><strong>市:</strong> {user.district}</p>
@@ -135,10 +147,23 @@ const InformationManager = () => {
                    onOk={handleOk}
                    onCancel={handleCancel}
             >
-                <Form form={form} layout="vertical" initialValues={user}>
-                    <Form.Item label="用户名" name="username">
-                        <Input />
-                    </Form.Item>
+                <Form form={form} layout="vertical" initialValues={{...user, atlocal}}>
+
+                    {userType === 'admin' && (
+                        <>
+                            <Form.Item label="用户名" name="username">
+                                <Input />
+                            </Form.Item>
+                        </>
+                    )}
+                    {userType === 'user' && (
+                        <>
+                            <Form.Item label="用户名" name="name">
+                                <Input />
+                            </Form.Item>
+                        </>
+                    )}
+
                     <Form.Item label="电话" name="phone">
                         <Input />
                     </Form.Item>
@@ -191,7 +216,7 @@ const InformationManager = () => {
                                 label="所在地区"
                                 rules={[{ required: true, message: '请选择所在地区!' }]}
                             >
-                                <Cascader options={options}  placeholder="请选择所在地区" />
+                                <Cascader options={regionOptions}  placeholder="请选择所在地区" />
                             </Form.Item>
                             <Form.Item
                                 name="location"

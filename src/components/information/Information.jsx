@@ -16,7 +16,7 @@ export const Information = () => {
             <p><strong>电话:</strong> {user.phone}</p>
             {userType === 'user' && (
                 <>
-                    <p><strong>身份证号:</strong> {user.idcard}</p>
+                    <p><strong>身份证号:</strong> {user.idCard}</p>
                     <p><strong>所在地区:</strong> {user.location}</p>
                     <p><strong>县:</strong> {user.city}</p>
                     <p><strong>市:</strong> {user.district}</p>
