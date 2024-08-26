@@ -1,0 +1,91 @@
+Date : 2024-08-26 16:02:31
+Directory : c:\Users\gianz\Desktop\untitled\government-service-queuing-system
+Total : 39 files,  3667 codes, 392 comments, 286 blanks, all 4345 lines
+
+Languages
++----------------+------------+------------+------------+------------+------------+
+| language       | files      | code       | comment    | blank      | total      |
++----------------+------------+------------+------------+------------+------------+
+| JavaScript JSX |         27 |      2,082 |        353 |        259 |      2,694 |
+| JSON           |          2 |      1,422 |          0 |          0 |      1,422 |
+| SCSS           |          3 |         76 |          5 |         13 |         94 |
+| Markdown       |          1 |         61 |          0 |          9 |         70 |
+| JavaScript     |          5 |         25 |         34 |          5 |         64 |
+| Properties     |          1 |          1 |          0 |          0 |          1 |
++----------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                          | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                             |         39 |      3,667 |        392 |        286 |      4,345 |
+| . (Files)                                                                                                                     |          3 |      1,423 |          0 |          0 |      1,423 |
+| src                                                                                                                           |         36 |      2,244 |        392 |        286 |      2,922 |
+| src (Files)                                                                                                                   |          2 |         10 |         21 |          0 |         31 |
+| src\components                                                                                                                |         19 |      1,677 |        326 |        216 |      2,219 |
+| src\components (Files)                                                                                                        |          4 |         26 |         10 |         13 |         49 |
+| src\components\Dashboard                                                                                                      |          1 |        142 |         10 |         22 |        174 |
+| src\components\TakeANumber                                                                                                    |          1 |        154 |         37 |         16 |        207 |
+| src\components\appointments                                                                                                   |          1 |          0 |          8 |         -1 |          7 |
+| src\components\chat                                                                                                           |          2 |        199 |         15 |         25 |        239 |
+| src\components\commit                                                                                                         |          2 |        331 |        128 |         31 |        490 |
+| src\components\editer                                                                                                         |          1 |          7 |          0 |          8 |         15 |
+| src\components\information                                                                                                    |          2 |        215 |          5 |         27 |        247 |
+| src\components\ps                                                                                                             |          3 |        229 |         35 |         35 |        299 |
+| src\components\queue                                                                                                          |          1 |         74 |         68 |         16 |        158 |
+| src\components\userAppointment                                                                                                |          1 |        300 |         10 |         24 |        334 |
+| src\dev                                                                                                                       |          5 |        110 |          6 |         17 |        133 |
+| src\pages                                                                                                                     |          8 |        445 |         32 |         52 |        529 |
+| src\pages\Dashboard                                                                                                           |          1 |         15 |          0 |          4 |         19 |
+| src\pages\index                                                                                                               |          2 |        127 |         12 |         17 |        156 |
+| src\pages\login                                                                                                               |          3 |        298 |         15 |         29 |        342 |
+| src\pages\system                                                                                                              |          2 |          5 |          5 |          2 |         12 |
+| src\router                                                                                                                    |          1 |          2 |          0 |          0 |          2 |
+| src\store                                                                                                                     |          1 |          0 |          7 |          1 |          8 |
++-------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| filename                                                                                                                      | language       | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\.env                                                        | Properties     |          1 |          0 |          0 |          1 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\package-lock.json                                           | JSON           |      1,415 |          0 |          0 |      1,415 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\package.json                                                | JSON           |          7 |          0 |          0 |          7 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\App.js                                                  | JavaScript     |          4 |         21 |          0 |         25 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\CaptchaInput.jsx                             | JavaScript JSX |          0 |         10 |          1 |         11 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\Dashboard\DashboardComponent.jsx             | JavaScript JSX |        142 |         10 |         22 |        174 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\Footer.jsx                                   | JavaScript JSX |          7 |          0 |          4 |         11 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\IndexComponent.jsx                           | JavaScript JSX |          1 |          0 |          1 |          2 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\TakeANumber\NumberComponent.jsx              | JavaScript JSX |        154 |         37 |         16 |        207 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\UserIndexComponent.jsx                       | JavaScript JSX |         18 |          0 |          7 |         25 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\appointments\CreateAppointment.jsx           | JavaScript JSX |          0 |          8 |         -1 |          7 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\chat\ChatButton.jsx                          | JavaScript JSX |         56 |          2 |          7 |         65 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\chat\ChatComponent.jsx                       | JavaScript JSX |        143 |         13 |         18 |        174 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\commit\CommentManagement.jsx                 | JavaScript JSX |        194 |         69 |         16 |        279 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\commit\UserCommentComponent.jsx              | JavaScript JSX |        137 |         59 |         15 |        211 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\editer\TextEditerComponent.jsx               | JavaScript JSX |          7 |          0 |          8 |         15 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\information\Information.jsx                  | JavaScript JSX |         33 |          0 |          4 |         37 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\information\InformationManager.jsx           | JavaScript JSX |        182 |          5 |         23 |        210 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\ps\PSButton.jsx                              | JavaScript JSX |         48 |          2 |          7 |         57 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\ps\PSComponent.jsx                           | JavaScript JSX |        135 |         33 |         20 |        188 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\ps\ps.scss                                   | SCSS           |         46 |          0 |          8 |         54 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\queue\QueueComponent.jsx                     | JavaScript JSX |         74 |         68 |         16 |        158 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\userAppointment\UserAppointmentComponent.jsx | JavaScript JSX |        300 |         10 |         24 |        334 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\dev\README.md                                           | Markdown       |         61 |          0 |          9 |         70 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\dev\index.js                                            | JavaScript     |          7 |          0 |          2 |          9 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\dev\palette.jsx                                         | JavaScript JSX |         25 |          0 |          2 |         27 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\dev\previews.jsx                                        | JavaScript JSX |          9 |          0 |          2 |         11 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\dev\useInitial.js                                       | JavaScript     |          8 |          6 |          2 |         16 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\index.js                                                | JavaScript     |          6 |          0 |          0 |          6 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\Dashboard\Dashboard.jsx                           | JavaScript JSX |         15 |          0 |          4 |         19 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\index\UserIndex.jsx                               | JavaScript JSX |        118 |         12 |         11 |        141 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\index\ZjaUserIndex.jsx                            | JavaScript JSX |          9 |          0 |          6 |         15 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\login\LoginPage.jsx                               | JavaScript JSX |        109 |          8 |          6 |        123 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\login\LoginPage.scss                              | SCSS           |         30 |          0 |          5 |         35 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\login\RegisterPage.jsx                            | JavaScript JSX |        159 |          7 |         18 |        184 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\system\ReservePage.jsx                            | JavaScript JSX |          5 |          0 |          2 |          7 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\system\ReservePage.scss                           | SCSS           |          0 |          5 |          0 |          5 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\router\webrouter.jsx                                    | JavaScript JSX |          2 |          0 |          0 |          2 |
+| c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\store\index.js                                          | JavaScript     |          0 |          7 |          1 |          8 |
+| Total                                                                                                                         |                |      3,667 |        392 |        286 |      4,345 |
++-------------------------------------------------------------------------------------------------------------------------------+----------------+------------+------------+------------+------------+

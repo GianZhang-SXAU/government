@@ -1,0 +1,78 @@
+"filename", "language", "Properties", "JSON", "JavaScript", "JavaScript JSX", "CSS", "XML", "Markdown", "SCSS", "HTML", "comment", "blank", "total"
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\.env", "Properties", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\.idea\government-service-queuing-system.iml", "XML", 0, 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 12
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\.idea\inspectionProfiles\Project_Default.xml", "XML", 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 6
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\.idea\modules.xml", "XML", 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 8
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\.idea\vcs.xml", "XML", 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 6
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\README.md", "Markdown", 0, 0, 0, 0, 0, 0, 38, 0, 0, 0, 33, 71
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\package-lock.json", "JSON", 0, 21492, 0, 0, 0, 0, 0, 0, 0, 0, 1, 21493
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\package.json", "JSON", 0, 65, 0, 0, 0, 0, 0, 0, 0, 0, 1, 66
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\public\index.html", "HTML", 0, 0, 0, 0, 0, 0, 0, 0, 20, 23, 1, 44
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\public\manifest.json", "JSON", 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 1, 26
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\App.css", "CSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 33, 6, 39
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\App.js", "JavaScript", 0, 0, 17, 0, 0, 0, 0, 0, 0, 21, 5, 43
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\App.test.js", "JavaScript", 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 2, 9
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\api\api.js", "JavaScript", 0, 0, 8, 0, 0, 0, 0, 0, 0, 1, 2, 11
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\api\appointments.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 44, 1, 45
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\api\auth.js", "JavaScript", 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 4, 24
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\api\comment.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 44, 1, 45
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\api\form\index.js", "JavaScript", 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 2, 13
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\api\queue.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 44, 1, 45
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\api\reservation.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 44, 1, 45
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\api\services.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 44, 1, 45
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\asserts\location.json", "JSON", 0, 475, 0, 0, 0, 0, 0, 0, 0, 0, 0, 475
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\asserts\pca.json", "JSON", 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\CaptchaInput.jsx", "JavaScript JSX", 0, 0, 0, 60, 0, 0, 0, 0, 0, 10, 8, 78
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\Dashboard\DashboardComponent.jsx", "JavaScript JSX", 0, 0, 0, 142, 0, 0, 0, 0, 0, 10, 22, 174
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\Footer.jsx", "JavaScript JSX", 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 4, 11
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\IndexComponent.jsx", "JavaScript JSX", 0, 0, 0, 84, 0, 0, 0, 0, 0, 3, 12, 99
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\LoginComponent.jsx", "JavaScript JSX", 0, 0, 0, 64, 0, 0, 0, 0, 0, 2, 5, 71
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\RegisterComponent.jsx", "JavaScript JSX", 0, 0, 0, 176, 0, 0, 0, 0, 0, 29, 28, 233
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\ServiceManagementComponent.jsx", "JavaScript JSX", 0, 0, 0, 119, 0, 0, 0, 0, 0, 1, 11, 131
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\TakeANumber\NumberComponent.jsx", "JavaScript JSX", 0, 0, 0, 387, 0, 0, 0, 0, 0, 39, 46, 472
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\UserIndexComponent.jsx", "JavaScript JSX", 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 7, 25
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\admin\AdminLoginComponent.jsx", "JavaScript JSX", 0, 0, 0, 10, 0, 0, 0, 0, 0, 1, 7, 18
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\admin\AdminManageComponent.jsx", "JavaScript JSX", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\admin\AdminRegisterComponent.jsx", "JavaScript JSX", 0, 0, 0, 69, 0, 0, 0, 0, 0, 0, 6, 75
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\appointments\CreateAppointment.jsx", "JavaScript JSX", 0, 0, 0, 185, 0, 0, 0, 0, 0, 8, 25, 218
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\appointments\ManageAppointments.jsx", "JavaScript JSX", 0, 0, 0, 297, 0, 0, 0, 0, 0, 4, 24, 325
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\chat\ChatButton.jsx", "JavaScript JSX", 0, 0, 0, 56, 0, 0, 0, 0, 0, 2, 7, 65
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\chat\ChatComponent.jsx", "JavaScript JSX", 0, 0, 0, 143, 0, 0, 0, 0, 0, 13, 18, 174
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\commit\CommentManagement.jsx", "JavaScript JSX", 0, 0, 0, 194, 0, 0, 0, 0, 0, 69, 16, 279
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\commit\UserCommentComponent.jsx", "JavaScript JSX", 0, 0, 0, 137, 0, 0, 0, 0, 0, 59, 15, 211
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\editer\TextEditerComponent.jsx", "JavaScript JSX", 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 8, 15
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\information\Information.jsx", "JavaScript JSX", 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 4, 37
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\information\InformationManager.jsx", "JavaScript JSX", 0, 0, 0, 215, 0, 0, 0, 0, 0, 5, 28, 248
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\ps\PSButton.jsx", "JavaScript JSX", 0, 0, 0, 48, 0, 0, 0, 0, 0, 2, 7, 57
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\ps\PSComponent.jsx", "JavaScript JSX", 0, 0, 0, 135, 0, 0, 0, 0, 0, 33, 20, 188
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\ps\ps.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 46, 0, 0, 8, 54
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\queue\QueueComponent.jsx", "JavaScript JSX", 0, 0, 0, 193, 0, 0, 0, 0, 0, 70, 30, 293
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\userAppointment\UserAppointmentComponent.jsx", "JavaScript JSX", 0, 0, 0, 300, 0, 0, 0, 0, 0, 10, 24, 334
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\user\ManageUsers.jsx", "JavaScript JSX", 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 12, 193
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\components\windows\WindowManagementComponent.jsx", "JavaScript JSX", 0, 0, 0, 104, 0, 0, 0, 0, 0, 0, 14, 118
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\dev\README.md", "Markdown", 0, 0, 0, 0, 0, 0, 61, 0, 0, 0, 9, 70
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\dev\index.js", "JavaScript", 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 2, 9
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\dev\palette.jsx", "JavaScript JSX", 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 2, 27
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\dev\previews.jsx", "JavaScript JSX", 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 2, 11
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\dev\useInitial.js", "JavaScript", 0, 0, 8, 0, 0, 0, 0, 0, 0, 6, 2, 16
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\index.css", "CSS", 0, 0, 0, 0, 12, 0, 0, 0, 0, 0, 2, 14
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\index.js", "JavaScript", 0, 0, 18, 0, 0, 0, 0, 0, 0, 3, 3, 24
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\logo.svg", "XML", 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\Dashboard\Dashboard.jsx", "JavaScript JSX", 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 4, 19
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\form\Form.jsx", "JavaScript JSX", 0, 0, 0, 218, 0, 0, 0, 0, 0, 4, 21, 243
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\index\IndexPage.jsx", "JavaScript JSX", 0, 0, 0, 68, 0, 0, 0, 0, 0, 0, 6, 74
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\index\UserIndex.jsx", "JavaScript JSX", 0, 0, 0, 131, 0, 0, 0, 0, 0, 14, 17, 162
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\index\ZjaUserIndex.jsx", "JavaScript JSX", 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 6, 15
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\index\index.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 13, 0, 0, 1, 14
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\login\LoginPage.jsx", "JavaScript JSX", 0, 0, 0, 175, 0, 0, 0, 0, 0, 8, 14, 197
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\login\LoginPage.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 37, 0, 0, 5, 42
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\login\RegisterPage.jsx", "JavaScript JSX", 0, 0, 0, 211, 0, 0, 0, 0, 0, 7, 22, 240
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\login\RegisterPage.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 1, 3
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\system\ReservePage.jsx", "JavaScript JSX", 0, 0, 0, 141, 0, 0, 0, 0, 0, 16, 19, 176
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\pages\system\ReservePage.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 5
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\reportWebVitals.js", "JavaScript", 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 2, 14
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\router\webrouter.jsx", "JavaScript JSX", 0, 0, 0, 29, 0, 0, 0, 0, 0, 0, 3, 32
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\setupTests.js", "JavaScript", 0, 0, 1, 0, 0, 0, 0, 0, 0, 4, 1, 6
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\store\index.js", "JavaScript", 0, 0, 22, 0, 0, 0, 0, 0, 0, 8, 6, 36
+"c:\Users\gianz\Desktop\untitled\government-service-queuing-system\src\utils\axios.js", "JavaScript", 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 1, 6
+"Total", "-", 1, 22058, 131, 4395, 12, 33, 99, 98, 20, 748, 631, 28226
