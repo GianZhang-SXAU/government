@@ -116,6 +116,7 @@ const CommentManagement = () => {
             const dataToSend = {
                 ...values,
                 userId: user.userId,
+                commentId: currentComment.commentId,
             };
             // 检查是新增还是修改，返回不同的方法
             if (currentComment) {
